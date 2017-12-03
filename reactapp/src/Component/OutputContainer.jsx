@@ -5,7 +5,8 @@ class OutputContainer extends Component {
     super(props);
 
     this.state = {
-      outputState: 'Loading ...'
+      outputState: 'Loading ...',
+      highlightWords: []
     }
   }
 
@@ -23,9 +24,14 @@ class OutputContainer extends Component {
 
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
-
+        var highlightwords = []
+        var replacements = JSON.parse(this.responseText)[0].replacements
+        for(var key in replacements){
+          highlightwords.push(JSON.parse(this.responseText)[0].replacements[key]);
+        }
         scope.setState({
-          outputState: JSON.parse(this.responseText)[0].replacement_string
+          outputState: JSON.parse(this.responseText)[0].replacement_string,
+          highlightWords : highlightwords
         });
 
         return;
@@ -41,7 +47,6 @@ class OutputContainer extends Component {
   }
 
   render() {
-    console.log("abc");
     return (
       <span className="Output-container" style={
         {
@@ -54,8 +59,7 @@ class OutputContainer extends Component {
         <textarea
           style={{"width": "90%", "height": "200px"}}
           value={this.state.outputState}
-          readOnly
-        />
+          readOnly />
         </span>
     );
   }
