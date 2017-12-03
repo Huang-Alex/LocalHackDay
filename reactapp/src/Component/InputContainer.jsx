@@ -23,6 +23,9 @@ class InputContainer extends Component {
           onChange={evt => this.props.updateTextCallback(evt)}
           placeholder={"Enter your text to inclusify!"}
         />
+        <br />
+        <br />
+        <button onClick={this.props.clearTextCallback}> Clear</button>
       </span>
     );
   }

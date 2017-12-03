@@ -11,10 +11,17 @@ class App extends Component {
     super(props);
 
     this.updateInputValue = this.updateInputValue.bind(this);
+    this.clearText = this.clearText.bind(this);
 
     this.state = {
       inputText: ''
     }
+  }
+
+  clearText(){
+    this.setState({
+      inputText: ''
+    })
   }
 
   updateInputValue(evt) {
@@ -33,6 +40,7 @@ class App extends Component {
         <div style={{"display":"flex"}}>
           <InputContainer
             updateTextCallback={this.updateInputValue}
+            clearTextCallback={this.clearText}
             inputText={this.state.inputText}
           />
           <OutputContainer

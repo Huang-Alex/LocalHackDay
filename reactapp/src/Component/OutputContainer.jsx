@@ -5,7 +5,7 @@ class OutputContainer extends Component {
     super(props);
 
     this.state = {
-      outputState: 'Loading ...',
+      outputState: 'Your inclusified text will appear here!',
       highlightWords: []
     }
   }
@@ -46,6 +46,13 @@ class OutputContainer extends Component {
     xhr.send(data);
   }
 
+  copyToClipboard() {
+    const textField = document.getElementById('textToSave');
+    textField.select();
+    document.execCommand('copy');
+    alert("You have copied the text to clipboard!")
+  }
+
   render() {
     return (
       <span className="Output-container" style={
@@ -57,10 +64,16 @@ class OutputContainer extends Component {
         }}>
           <h3>Output</h3>
         <textarea
-          style={{"width": "90%", "height": "200px"}}
+          id="textToSave"
+          onClick={this.copyToClipboard}
+          style={{"width": "90%", "height": "200px", "background-color":"#f6f6f6"}}
           value={this.state.outputState}
-          readOnly />
-        </span>
+          readOnly
+        />
+        <br />
+        <br />
+        <p>Click the text area above to copy!</p>
+      </span>
     );
   }
 }
